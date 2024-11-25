@@ -1,16 +1,13 @@
 # FocusHere
-FocusHere te permite que el highlight solo funcione en aquel fragmento
-de codigo o texto que deseas enfocarte.
-
+FocusHere allows the highlight to only work on the code or text fragment you want to focus on.
 # Why
-Los plugins de Zen Mode son buenas opciones pero yo simplemente aveces quiero enfocar
-un texto por encima de otros y no entrar en modo Zen. And the truth is, I don't know if nvim already has a native function for this lol
+The Zen Mode plugins are good options, but sometimes I just want to focus on one text over others without entering Zen mode.
+And the truth is, I don't know if nvim already has a native function for this lol
 
 # Requeriments
 i dont know my nvim is 0.10.1
 
 # LazyVim Install
-
 ```lua
 {
     "kelvinauta/focushere.nvim",
