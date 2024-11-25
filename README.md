@@ -14,8 +14,8 @@ i dont know my nvim is 0.10.1
     config = function ()
        require("focushere.nvim").setup()
         -- Optional KeyMap
-        vim.keymap.set("v","<A-f>" , ":FocusHere<CR>" , {noremap=true, silent=true})
-        vim.keymap.set("n","<A-f>" , ":FocusClear<CR>" , {noremap=true, silent=true})
+        vim.keymap.set("v","zf" , ":FocusHere<CR>" , {noremap=true, silent=true})
+        vim.keymap.set("n","zf" , ":FocusClear<CR>" , {noremap=true, silent=true})
     end
 }
 ```
