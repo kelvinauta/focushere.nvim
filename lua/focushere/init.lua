@@ -51,29 +51,30 @@ function M.focusClear(buf_id)
     M.bufs_focused[buf_id] = nil
 end
 
+function M.pre_setup(dev)
+    vim.api.nvim_create_user_command(dev and 'TestFocusHere' or "FocusHere", M.focusHere, { range = true })
+    vim.api.nvim_create_user_command(dev and 'TestFocusClear' or "FocusClear", M.focusClear, {})
+    vim.keymap.set('n', 'u', M.undoFocus, {}) -- WARN: Remap undo
+    vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout", "TextChanged", "TextChangedI","TextChangedP","InsertLeave" }, {
+        callback = function(ev)
+            require("focushere").bufs_focused[ev.buf] = nil
+        end
+    })
+    if dev then
+        vim.keymap.set("v", "zf", ":TestFocusHere<CR>")
+        vim.keymap.set("n", "zf", ":TestFocusClear<CR>")
+    end
+end
+
 function M.test_setup()
-    vim.api.nvim_create_user_command('TestFocusHere', M.focusHere, { range = true })
-    vim.api.nvim_create_user_command('TestFocusClear', M.focusClear, {})
-    vim.keymap.set('n', 'u', M.undoFocus, {}) -- WARN: Remap undo
-    vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
-        callback = function(ev)
-            M.focusClear(ev.buf)
-        end
-    })
-    vim.keymap.set("v", "zf", ":TestFocusHere<CR>" )
-    vim.keymap.set("n", "zf", ":TestFocusClear<CR>" )
+    M.pre_setup(true)
 end
+
 function M.setup()
-    vim.api.nvim_create_user_command('FocusHere', M.focusHere, { range = true })
-    vim.api.nvim_create_user_command('FocusClear', M.focusClear, {})
-    vim.keymap.set('n', 'u', M.undoFocus, {}) -- WARN: Remap undo
-    vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
-        callback = function(ev)
-            vim.print(ev)
-            M.focusClear(ev.buf)
-        end
-    })
+    M.pre_setup()
 end
+
+M.test_setup()
 -- {
 --     "kelvinauta/focushere.nvim",
 --     config = function ()
