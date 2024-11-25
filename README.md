@@ -13,7 +13,7 @@ i dont know my nvim is 0.10.1
 {
     "kelvinauta/focushere.nvim",
     config = function ()
-       require("focushere.nvim").setup()
+       require("focushere").setup()
         -- Optional KeyMap
         vim.keymap.set("v","zf" , ":FocusHere<CR>" , {noremap=true, silent=true})
         vim.keymap.set("n","zf" , ":FocusClear<CR>" , {noremap=true, silent=true})

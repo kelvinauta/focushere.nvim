@@ -74,7 +74,7 @@ function M.setup()
     M.pre_setup()
 end
 
-M.test_setup()
+-- M.test_setup()
 -- {
 --     "kelvinauta/focushere.nvim",
 --     config = function ()
