@@ -1,5 +1,6 @@
 # FocusHere
 FocusHere allows the highlight to only work on the code or text fragment you want to focus on.
+![Demo FocusHere](demo.gif)
 # Why
 The Zen Mode plugins are good options, but sometimes I just want to focus on one text over others without entering Zen mode.
 And the truth is, I don't know if nvim already has a native function for this lol
