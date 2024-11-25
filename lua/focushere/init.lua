@@ -19,7 +19,7 @@ function M.focusHere()
     local end_line = end_pos[2]
     local bufnr = 0
     local line_count = vim.api.nvim_buf_line_count(bufnr)
-    local ns_id = M.genereteNameSpace().id
+    local ns_id = M.genereteNameSpace().namespace
     vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
     if start_line > 0 then
         vim.api.nvim_buf_set_extmark(bufnr, ns_id, 0, 0, {
@@ -51,18 +51,29 @@ function M.focusClear(buf_id)
     M.bufs_focused[buf_id] = nil
 end
 
-function M.setup()
-    vim.api.nvim_create_user_command('FocusHere', M.focusHere, { range = true })
-    vim.api.nvim_create_user_command('FocusClear', M.focusClear, {})
+function M.test_setup()
+    vim.api.nvim_create_user_command('TestFocusHere', M.focusHere, { range = true })
+    vim.api.nvim_create_user_command('TestFocusClear', M.focusClear, {})
     vim.keymap.set('n', 'u', M.undoFocus, {}) -- WARN: Remap undo
     vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
         callback = function(ev)
             M.focusClear(ev.buf)
         end
     })
+    vim.keymap.set("v", "zf", ":TestFocusHere<CR>" )
+    vim.keymap.set("n", "zf", ":TestFocusClear<CR>" )
 end
-
-M.setup()
+function M.setup()
+    vim.api.nvim_create_user_command('FocusHere', M.focusHere, { range = true })
+    vim.api.nvim_create_user_command('FocusClear', M.focusClear, {})
+    vim.keymap.set('n', 'u', M.undoFocus, {}) -- WARN: Remap undo
+    vim.api.nvim_create_autocmd({ "BufDelete", "BufWipeout" }, {
+        callback = function(ev)
+            vim.print(ev)
+            M.focusClear(ev.buf)
+        end
+    })
+end
 -- {
 --     "kelvinauta/focushere.nvim",
 --     config = function ()
