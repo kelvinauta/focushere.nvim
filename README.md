@@ -12,12 +12,11 @@ i dont know my nvim is 0.10.1
 ```lua
 {
     "kelvinauta/focushere.nvim",
-    config = function ()
-       require("focushere").setup()
-        -- Optional KeyMap
-        vim.keymap.set("v","zf" , ":FocusHere<CR>" , {noremap=true, silent=true})
-        vim.keymap.set("n","zf" , ":FocusClear<CR>" , {noremap=true, silent=true})
-    end
+    opts = {},
+    keys = {
+      { "zf", "<cmd>FocusHere<cr>", mode = "v", desc = "Focus Here", },
+      { "zf", "<cmd>FocusClear<cr>", mode = "n", desc = "Clear focus", },
+    }
 }
 ```
 # Functions
